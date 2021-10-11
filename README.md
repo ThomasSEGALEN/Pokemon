@@ -31,7 +31,8 @@ Développé en **Python**.
 	- ratio2 = attaque_pokemon_2 / defense_pokemon_2
 	- gagnant = random de 0 à somme(ratio1, ratio2) (même principe que % spawn)
   
-10)	Mettre en place les pokedollars ($). Chaque combat gagné rapporte entre 1 et 2000 pokedollars
+10)	Mettre en place les Pokédollars
+	Chaque combat gagné rapporte entre 1 et 2000 Pokédollars
   
 11) Ajouter un shop, avec les prix suivants : 
 	- Pokeball : 200$
@@ -40,10 +41,10 @@ Développé en **Python**.
 	- Masterball : 50000$
   
 12)	Mettre en place le tout dans un programme en CLI, avec un menu : 
-	- shop
-	- spawn (entraîne capture OU combat (combat entraine le choix d'un de vos pokémon qui va combattre) )
-	- inventaire Pokeballs
-	- inventaire Pokemons
+	- Shop
+	- Spawn (entraîne capture OU combat (combat entraine le choix d'un de vos pokémon qui va combattre) )
+	- Inventaire Pokeballs
+	- Inventaire Pokemons
   
   
 **__Deadline - 14 octobre à 15h__**
