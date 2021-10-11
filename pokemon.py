@@ -1,14 +1,17 @@
 import random
 
 # Créer une liste des pokémons, incluant une chance de spawn (0 - 100%)
+# Ajouter des stats par pokémon (attaque / défense)
 
-# ["Name", minSpawn, maxSpawn, %Spawn, nbSpawn]
+# ["Name", minSpawn, maxSpawn, %Spawn, nbSpawn, attack, defense]
 
 pokemons = [
-    ["Bulbizarre", 0, 60, 0, 0], ["Salamèche", 61, 121, 0, 0], ["Carapuce", 122, 182, 0, 0], ["Chenipan", 183, 263, 0, 0], ["Aspicot", 264, 344, 0, 0], ["Roucool", 345, 425, 0, 0], 
-    ["Rattata", 426, 506, 0, 0], ["Piafabec", 507, 587, 0, 0], ["Abo", 588, 658, 0, 0], ["Pikachu", 659, 719, 0, 0], ["Sabelette", 720, 770, 0, 0], ["Nidoran ♀️", 771, 821, 0, 0], 
-    ["Nidoran ♂️", 822, 872, 0, 0], ["Mélofée", 873, 923, 0, 0], ["Goupix", 924, 974, 0, 0], ["Rondoudou", 975, 1025, 0, 0], ["Nosferapti", 1026, 1076, 0, 0], 
-    ["Nosferalto", 1077, 1127, 0, 0], ["Mystherbe", 1128, 1178, 0, 0], ["Paras", 1179, 1229, 0, 0], ["Mimitoss", 1230, 1280, 0, 0], ["Taupiqueur", 1281, 1351, 0, 0], 
+    ["Bulbasaur", 0, 60, 0, 0, 49, 49], ["Charmander", 61, 121, 0, 0, 52, 43], ["Squirtle", 122, 182, 0, 0, 48, 65], ["Caterpie", 183, 263, 0, 0, 30, 35], 
+    ["Weedle", 264, 344, 0, 0, 35, 30], ["Pidgey", 345, 425, 0, 0, 45, 40], ["Rattata", 426, 506, 0, 0, 56, 35], ["Spearow", 507, 587, 0, 0, 60, 30], 
+    ["Ekans", 588, 658, 0, 0, 60, 44], ["Pikachu", 659, 719, 0, 0, 55, 40], ["Sandshrew", 720, 770, 0, 0, 75, 85], ["Nidoran ♀️", 771, 821, 0, 0, 47, 52], 
+    ["Nidoran ♂️", 822, 872, 0, 0, 57, 40], ["Clefairy", 873, 923, 0, 0, 45, 48], ["Vulpix", 924, 974, 0, 0, 41, 40], ["Jigglypuff", 975, 1025, 0, 0, 45, 20], 
+    ["Zubat ", 1026, 1076, 0, 0, 45, 35], ["Golbat", 1077, 1127, 0, 0, 80, 70], ["Oddish", 1128, 1178, 0, 0, 50, 55], ["Paras", 1179, 1229, 0, 0, 70, 55], 
+    ["Venonat", 1230, 1280, 0, 0, 55, 50], ["Diglett", 1281, 1351, 0, 0, 55, 25], 
     ["Miaouss", 1352, 1412, 0, 0], ["Psykokwak", 1413, 1483, 0, 0], ["Férosinge", 1484, 1544, 0, 0], ["Caninos", 1545, 1605, 0, 0], ["Ptitard", 1606, 1666, 0, 0], 
     ["Abra", 1667, 1727, 0, 0], ["Machoc", 1728, 1788, 0, 0], ["Chétiflor", 1789, 1849, 0, 0], ["Tentacool", 1850, 1910, 0, 0], ["Racaillou", 1911, 1971, 0, 0], 
     ["Ponyta", 1972, 2032, 0, 0], ["Ramoloss", 2033, 2093, 0, 0], ["Magnéti", 2094, 2154, 0, 0], ["Doduo", 2155, 2215, 0, 0], ["Otaria", 2216, 2276, 0, 0], ["Tadmorv", 2277, 2337, 0, 0], 
@@ -272,11 +275,9 @@ def catchResistance():
 # - 1 inventaire pokeballs
 
 inventory_pokeballs = [
-    ["Pokeball", 0], ["Superball", 0],["Hyperball", 0], ["Masterball"]
+    ["Pokeball", 0], ["Superball", 0],["Hyperball", 0], ["Masterball", 0]
 ]
-inventory_pokemons = [
-    ["pokemon1", 0], ["pokemon2", 0], ["pokemon3", 0]
-]
+inventory_pokemons = []
 
 def inventory():
     select_inventory = 0
@@ -286,21 +287,20 @@ def inventory():
         print("1: Pokemons | 2: Pokeballs")
         input_inventory = input()
         if input_inventory == "1":
-            print("Pokemons inventory")
+            print("--- Pokemons inventory ---")
+            if inventory_pokemons == []:
+                print("Any Pokemon")
+            for i in range (0, len(inventory_pokemons)):
+                print("Pokemon:", inventory_pokemons[i][0], "| Amount:", inventory_pokemons[i][1])
             select_inventory = 1
         elif input_inventory == "2":
-            print("Pokeballs inventory")
+            print("--- Pokeballs inventory ---")
+            for i in range (0, len(inventory_pokeballs)):
+                print("Pokeball:", inventory_pokeballs[i][0], "| Amount:", inventory_pokeballs[i][1])
             select_inventory = 1
         else:
             print("Select an inventory")
 
+# inventory()
 
 
-
-
-
-
-
-
-
-inventory()
