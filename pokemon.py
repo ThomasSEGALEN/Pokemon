@@ -1,16 +1,18 @@
 import random
 
-# Créer une liste des pokémons, incluant une chance de spawn (0 - 100%)
+# Créer une liste de Pokémons, incluant une chance de spawn (0 - 100%)
 # Ajouter des stats par pokémon (attaque / défense)
 
 # ["Name", minSpawn, maxSpawn, %Spawn, nbSpawn, attack, defense]
+
+balance = 0
 
 pokemons = [
     ["Bulbasaur", 0, 60, 0, 0, 49, 49], ["Charmander", 61, 121, 0, 0, 52, 43], ["Squirtle", 122, 182, 0, 0, 48, 65], ["Caterpie", 183, 263, 0, 0, 30, 35], 
     ["Weedle", 264, 344, 0, 0, 35, 30], ["Pidgey", 345, 425, 0, 0, 45, 40], ["Rattata", 426, 506, 0, 0, 56, 35], ["Spearow", 507, 587, 0, 0, 60, 30], 
     ["Ekans", 588, 658, 0, 0, 60, 44], ["Pikachu", 659, 719, 0, 0, 55, 40], ["Sandshrew", 720, 770, 0, 0, 75, 85], ["Nidoran ♀️", 771, 821, 0, 0, 47, 52], 
     ["Nidoran ♂️", 822, 872, 0, 0, 57, 40], ["Clefairy", 873, 923, 0, 0, 45, 48], ["Vulpix", 924, 974, 0, 0, 41, 40], ["Jigglypuff", 975, 1025, 0, 0, 45, 20], 
-    ["Zubat ", 1026, 1076, 0, 0, 45, 35], ["Golbat", 1077, 1127, 0, 0, 80, 70], ["Oddish", 1128, 1178, 0, 0, 50, 55], ["Paras", 1179, 1229, 0, 0, 70, 55], 
+    ["Zubat", 1026, 1076, 0, 0, 45, 35], ["Golbat", 1077, 1127, 0, 0, 80, 70], ["Oddish", 1128, 1178, 0, 0, 50, 55], ["Paras", 1179, 1229, 0, 0, 70, 55], 
     ["Venonat", 1230, 1280, 0, 0, 55, 50], ["Diglett", 1281, 1351, 0, 0, 55, 25], ["Meowth", 1352, 1412, 0, 0, 45, 35], ["Psyduck", 1413, 1483, 0, 0, 52, 48], 
     ["Mankey", 1484, 1544, 0, 0, 80, 35], ["Growlithe", 1545, 1605, 0, 0, 70, 45], ["Poliwag", 1606, 1666, 0, 0, 50, 40], ["Abra", 1667, 1727, 0, 0, 20, 15], 
     ["Machop", 1728, 1788, 0, 0, 80, 50], ["Bellsprout", 1789, 1849, 0, 0, 75, 35], ["Tentacool", 1850, 1910, 0, 0, 40, 35], ["Geodude", 1911, 1971, 0, 0, 80, 100], 
@@ -36,10 +38,12 @@ pokemons = [
 # print(pokemons)
 
 
-# Créer une méthode spawn, qui, en fonction de la chance de spawn, fait spawn un pokémon (affiche son nom)
+# Créer une méthode spawn, qui, en fonction de la chance de spawn, fait spawn un Pokémon (affiche son nom)
 
 def spawn():
     total_range = 0
+    global pokemon_spawn
+    global pokemon_spawn_stats
 
     for i in range (0, len(pokemons)):
         total_range += pokemons[i][2] - pokemons[i][1]
@@ -49,7 +53,9 @@ def spawn():
 
     for i in range (0, len(pokemons)-1):
         if random_pokemon >= pokemons[i][1] and random_pokemon <= pokemons[i][2]:
-            print(pokemons[i][0])
+            pokemon_spawn = pokemons[i][0]
+            pokemon_spawn_stats = pokemons[i]
+            print(pokemon_spawn, end=" ")
             pokemons[i][4] += 1
             # print(pokemons[i][4])
 
@@ -81,7 +87,7 @@ def pokedex():
 # pokedex()
 
 
-# Faire spawn 1000 pokémons, calculer le % de chaque pokémon spawn
+# Faire spawn 1000 Pokémons, calculer le % de chaque Pokémon spawn
 
 def massSpawn():
     total_range = 0
@@ -106,7 +112,7 @@ def massSpawn():
 # massSpawn()
 
 
-# Comparer le % de spawn avec la chance de spawn du pokémon, afficher pour chaque pokémon spawn, s'il y en a eu plus ou moins que la probabilité de spawn initiale
+# Comparer le % de spawn avec la chance de spawn du Pokémon, afficher pour chaque Pokémon spawn, s'il y en a eu plus ou moins que la probabilité de spawn initiale
 
 def spawnPercentage():
     total_range = 0
@@ -140,7 +146,8 @@ def spawnPercentage():
 # spawnPercentage()
 
 
-# Créer les pokéball (30%), superball (50%), hyperball (70%), masterball (100%). Mettre un % de chance d'attraper le pokemon pour chacune
+# Créer les Pokéball (30%), Superball (50%), Hyperball (70%), mMsterball (100%)
+# Mettre un % de chance d'attraper le Pokémon pour chacune
 
 balls = [
     ["Pokeball", 0, 30], ["Superball", 0, 50], ["Hyperball", 0, 70], ["Masterball", 0, 100]
@@ -203,8 +210,9 @@ def catch():
 # catch()
 
 
-# Ajouter une "résistance" à chaque pokemon, entre 0 et 50%. La résistance est la diminution de la probabilité d'attraper les pokémons
-# Attention, la masterball ne prend pas en compte la resistance
+# Ajouter une "résistance" à chaque Pokémon, entre 0 et 50%
+# La résistance est la diminution de la probabilité d'attraper les Pokémons
+# Attention, la Masterball ne prend pas en compte la résistance
 
 def catchResistance():
     total_range = 0
@@ -275,13 +283,15 @@ def catchResistance():
 
 
 # Mettre en place un inventaire des objets obtenus :
-# - 1 inventaire pokemon
-# - 1 inventaire pokeballs
+# - 1 Inventaire Pokémons
+# - 1 Inventaire Pokéballs
 
 inventory_pokeballs = [
     ["Pokeball", 0], ["Superball", 0],["Hyperball", 0], ["Masterball", 0]
 ]
-inventory_pokemons = []
+inventory_pokemons = [
+    ["Bulbasaur", 0, 60, 0, 0, 49, 49], ["Charmander", 61, 121, 0, 0, 52, 43], ["Squirtle", 122, 182, 0, 0, 48, 65]
+]
 
 def inventory():
     select_inventory = 0
@@ -307,4 +317,67 @@ def inventory():
 
 # inventory()
 
+
+# Mettre en place les combats (pokemon_1 vs pokemon_2) :
+# - ratio1 = attaque_pokemon_1 / defense_pokemon_1
+# - ratio2 = attaque_pokemon_2 / defense_pokemon_2
+# - gagnant = random de 0 à somme(ratio1, ratio2). (meme principe que % spawn)
+# Mettre en place les Pokédollars
+# Chaque combat gagné rapporte entre 1 et 2000 Pokédollars
+
+def play():
+    global balance
+    global pokemon_spawn
+    global pokemon_spawn_stats
+
+    while True:
+        x = input()
+        print("Wild", end=" ")
+        spawn()
+        print("spawned!")
+        print("Choose your action:\n", end="")
+        print("1: Fight | 2: Catch | Enter: Flee")
+        input_play = input()
+        if input_play == "1":
+            print("Select your Pokemon:\n")
+            for i in range (0, len(inventory_pokemons)):
+                print("Pokemon", i+1, ":", inventory_pokemons[i][0])
+            input_pokemon = input()
+            if input_pokemon == "":
+                print("None")
+            pokemon_stats = inventory_pokemons[int(input_pokemon)-1]
+            pokemon_fight = inventory_pokemons[int(input_pokemon)-1][0]
+            print(pokemon_stats)
+            print(pokemon_spawn_stats)
+            pokemon_ratio_1 = round((pokemon_stats[5] / pokemon_stats[6])+20)
+            pokemon_ratio_2 = round((pokemon_spawn_stats[5] / pokemon_spawn_stats[6])+20)
+            print(pokemon_ratio_1)
+            print(pokemon_ratio_2)
+            ratio_range = pokemon_ratio_1 + pokemon_ratio_2
+            # print(ratio_range)
+            ratio_random = random.randint(0, ratio_range)
+            print(ratio_random)
+            print("")
+            print(pokemon_fight, "VS", pokemon_spawn)
+            if ratio_random < pokemon_ratio_1:
+                print("Your Pokemon >", end=" ")
+                print(pokemon_fight, "attacks")
+                print("Enemy >", end=" ")
+                print(pokemon_spawn, "fainted")
+                pokedollars = random.randint(1, 2000)
+                balance += pokedollars
+                print("+", end="")
+                print(pokedollars, "Pokédollars")
+                print("Balance:", balance, "Pokédollars")
+            else:
+                print("Enemy >", end=" ")
+                print(pokemon_spawn, "attacks")
+                print("Your Pokemon >", end=" ")
+                print(pokemon_fight, "fainted")
+        # elif input_play == "2":   Catch
+        # elif input_play == "3":   Inventory
+        else:
+            pass
+
+play()
 

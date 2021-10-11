@@ -17,11 +17,11 @@ Développé en **Python**.
 	Mettre un % de chance d'attraper le Pokémon pour chacune
   
 6)	Ajouter une "résistance" à chaque Pokémon, entre 0 et 50%  
-	La résistance est la diminution de la probabilité d'attraper les Pokémons (la masterball de ne prend pas en compte la resistance)
+	La résistance est la diminution de la probabilité d'attraper les Pokémons (la Masterball de ne prend pas en compte la résistance)
   
 7)	Mettre en place un inventaire des objets obtenus :
-	- 1 inventaire Pokémons
-	- 1 inventaire Pokéballs
+	- Inventaire Pokémons
+	- Inventaire Pokéballs
   
 8)	Ajouter des statistiques par Pokémon (attaque / défense)
   
