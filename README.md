@@ -16,9 +16,8 @@ Développé en **Python**.
 5)	Créer les Pokéball (30%), Superball (50%), Hyperball (70%), Masterball (100%)  
 	Mettre un % de chance d'attraper le Pokémon pour chacune
   
-6)	Ajouter une "résistance" à chaque Pokémon, entre 0 et 50%
-	La résistance est la diminution de la probabilité d'attraper les Pokémons  
-	(la masterball de ne prend pas en compte la resistance)
+6)	Ajouter une "résistance" à chaque Pokémon, entre 0 et 50%  
+	La résistance est la diminution de la probabilité d'attraper les Pokémons (la masterball de ne prend pas en compte la resistance)
   
 7)	Mettre en place un inventaire des objets obtenus :
 	- 1 inventaire Pokémons
