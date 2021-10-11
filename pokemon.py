@@ -150,7 +150,7 @@ def spawnPercentage():
 # Mettre un % de chance d'attraper le Pokémon pour chacune
 
 balls = [
-    ["Pokeball", 0, 30], ["Superball", 0, 50], ["Hyperball", 0, 70], ["Masterball", 0, 100]
+    ["Pokeball", 0, 30, 200], ["Superball", 0, 50, 600], ["Hyperball", 0, 70, 1200], ["Masterball", 0, 100, 50000]
 ]
 
 def catch():
@@ -336,7 +336,7 @@ def play():
         spawn()
         print("spawned!")
         print("Choose your action:\n", end="")
-        print("1: Fight | 2: Catch | Enter: Flee")
+        print("1: Fight | 2: Catch | 3: Inventory | 4: Shop | Enter: Flee")
         input_play = input()
         if input_play == "1":
             print("Select your Pokemon:\n")
@@ -367,8 +367,8 @@ def play():
                 pokedollars = random.randint(1, 2000)
                 balance += pokedollars
                 print("+", end="")
-                print(pokedollars, "Pokédollars")
-                print("Balance:", balance, "Pokédollars")
+                print(pokedollars, "Pokedollars")
+                print("Balance:", balance, "Pokedollars")
             else:
                 print("Enemy >", end=" ")
                 print(pokemon_spawn, "attacks")
@@ -379,5 +379,33 @@ def play():
         else:
             pass
 
-play()
+# play()
 
+# Ajouter un shop, avec les prix suivants : 
+#       -> pokeball : 200$
+#       -> superball : 600$
+#       -> hyperball : 1 200$
+#       -> masterball : 50 000$
+
+def pokeshop():
+    print("What do you want to buy?:\n", end="")
+    print("1: Pokeball -", balls[0][3], "Pokedollars")
+    print("2: Superball -", balls[1][3], "Pokedollars")
+    print("3: Hyperball -", balls[2][3], "Pokedollars")
+    print("4: Masterball -", balls[3][3], "Pokedollars")
+    input_shop = input()
+    # print(input_shop)
+    if input_shop == "1":
+        print("Pokeball bought: -", end="")
+        print(balls[0][3], "Pokedollars")
+    elif input_shop == "2":
+        print("Superball bought: -", end="")
+        print(balls[1][3], "Pokedollars")
+    elif input_shop == "2":
+        print("Hyperball bought: -", end="")
+        print(balls[2][3], "Pokedollars")
+    elif input_shop == "2":
+        print("Masterball bought: -", end="")
+        print(balls[3][3], "Pokedollars")
+
+pokeshop()
