@@ -244,40 +244,37 @@ def catchResistance():
             select_pokeball = 1
             if balls[0][1] <= catch_chance and balls[0][2] >= catch_chance:
                 if resistance_chance >= 0 and resistance_chance <= 50:
-                    print("Pokemon catched")
+                    print(pokemon_spawn, "catched")
                 else:
-                    print("Pokemon escaped")
+                    print(pokemon_spawn, "escaped")
             else:
-                print("Pokemon escaped")
+                print(pokemon_spawn, "escaped")
         elif input_ball == "2":
             print("Superball thrown")
             select_pokeball = 1
             if balls[1][1] <= catch_chance and balls[1][2] >= catch_chance:
                 if resistance_chance >= 0 and resistance_chance <= 50:
-                    print("Pokemon catched")
+                    print(pokemon_spawn, "catched")
                 else:
-                    print("Pokemon escaped")
+                    print(pokemon_spawn, "escaped")
             else:
-                print("Pokemon escaped")
+                print(pokemon_spawn, "escaped")
         elif input_ball == "3":
             print("Hyperball thrown")
             select_pokeball = 1
             if balls[2][1] <= catch_chance and balls[2][2] >= catch_chance:
                 if resistance_chance >= 0 and resistance_chance <= 50:
-                    print("Pokemon catched")
+                    print(pokemon_spawn,"catched")
                 else:
-                    print("Pokemon escaped")
+                    print(pokemon_spawn, "escaped")
             else:
-                print("Pokemon escaped")
+                print(pokemon_spawn, "escaped")
         elif input_ball == "4":
             print("Masterball thrown")
             select_pokeball = 1
-            if balls[3][1] <= catch_chance and balls[3][2] >= catch_chance:
-                print("Pokemon catched")
-            else:
-                print("Pokemon escaped")
+            print(pokemon_spawn, "catched")
         else:
-            print("Select a pokeball")
+            pass
 
 # catchResistance()
 
@@ -325,11 +322,47 @@ def inventory():
 # Mettre en place les Pokédollars
 # Chaque combat gagné rapporte entre 1 et 2000 Pokédollars
 
-def play():
+def fight():
     global balance
-    global pokemon_spawn
-    global pokemon_spawn_stats
 
+    print("Select your Pokemon:")
+    for i in range (0, len(inventory_pokemons)):
+        print("Pokemon", i+1, ":", inventory_pokemons[i][0])
+    input_pokemon = input()
+    pokemon_stats = inventory_pokemons[int(input_pokemon)-1]
+    pokemon_fight = inventory_pokemons[int(input_pokemon)-1][0]
+    # print(pokemon_stats)
+    # print(pokemon_spawn_stats)
+    pokemon_ratio_1 = round((pokemon_stats[5] / pokemon_stats[6])+20)
+    pokemon_ratio_2 = round((pokemon_spawn_stats[5] / pokemon_spawn_stats[6])+20)
+    # print(pokemon_ratio_1)
+    # print(pokemon_ratio_2)
+    ratio_range = pokemon_ratio_1 + pokemon_ratio_2
+    # print(ratio_range)
+    ratio_random = random.randint(0, ratio_range)
+    # print(ratio_random)
+    print("")
+    print(pokemon_fight, "VS", pokemon_spawn)
+    if ratio_random < pokemon_ratio_1:
+        print("Your Pokemon >", end=" ")
+        print(pokemon_fight, "attacks")
+        print("Enemy >", end=" ")
+        print(pokemon_spawn, "fainted")
+        pokedollars = random.randint(1, 2000)
+        balance += pokedollars
+        print("+", end="")
+        print(pokedollars, "Pokedollars")
+        print("Balance:", balance, "Pokedollars")
+    else:
+        print("Enemy >", end=" ")
+        print(pokemon_spawn, "attacks")
+        print("Your Pokemon >", end=" ")
+        print(pokemon_fight, "fainted")
+
+# fight()
+
+
+def play():
     while True:
         x = input()
         print("Wild", end=" ")
@@ -339,47 +372,14 @@ def play():
         print("1: Fight | 2: Catch | 3: Inventory | 4: Shop | Enter: Flee")
         input_play = input()
         if input_play == "1":
-            print("Select your Pokemon:\n")
-            for i in range (0, len(inventory_pokemons)):
-                print("Pokemon", i+1, ":", inventory_pokemons[i][0])
-            input_pokemon = input()
-            if input_pokemon == "":
-                print("None")
-            pokemon_stats = inventory_pokemons[int(input_pokemon)-1]
-            pokemon_fight = inventory_pokemons[int(input_pokemon)-1][0]
-            print(pokemon_stats)
-            print(pokemon_spawn_stats)
-            pokemon_ratio_1 = round((pokemon_stats[5] / pokemon_stats[6])+20)
-            pokemon_ratio_2 = round((pokemon_spawn_stats[5] / pokemon_spawn_stats[6])+20)
-            print(pokemon_ratio_1)
-            print(pokemon_ratio_2)
-            ratio_range = pokemon_ratio_1 + pokemon_ratio_2
-            # print(ratio_range)
-            ratio_random = random.randint(0, ratio_range)
-            print(ratio_random)
-            print("")
-            print(pokemon_fight, "VS", pokemon_spawn)
-            if ratio_random < pokemon_ratio_1:
-                print("Your Pokemon >", end=" ")
-                print(pokemon_fight, "attacks")
-                print("Enemy >", end=" ")
-                print(pokemon_spawn, "fainted")
-                pokedollars = random.randint(1, 2000)
-                balance += pokedollars
-                print("+", end="")
-                print(pokedollars, "Pokedollars")
-                print("Balance:", balance, "Pokedollars")
-            else:
-                print("Enemy >", end=" ")
-                print(pokemon_spawn, "attacks")
-                print("Your Pokemon >", end=" ")
-                print(pokemon_fight, "fainted")
-        # elif input_play == "2":   Catch
+            fight()
+        elif input_play == "2":
+            catchResistance()
         # elif input_play == "3":   Inventory
         else:
             pass
 
-# play()
+play()
 
 # Ajouter un shop, avec les prix suivants : 
 #       -> pokeball : 200$
@@ -408,4 +408,4 @@ def pokeshop():
         print("Masterball bought: -", end="")
         print(balls[3][3], "Pokedollars")
 
-pokeshop()
+# pokeshop()
