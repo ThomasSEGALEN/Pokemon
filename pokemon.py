@@ -149,7 +149,7 @@ def spawnPercentage():
 # Créer les Pokéball (30%), Superball (50%), Hyperball (70%), mMsterball (100%)
 # Mettre un % de chance d'attraper le Pokémon pour chacune
 
-balls = [
+pokepokeballs = [
     ["Pokeball", 0, 30, 200], ["Superball", 0, 50, 600], ["Hyperball", 0, 70, 1200], ["Masterball", 0, 100, 50000]
 ]
 
@@ -165,28 +165,28 @@ def catch():
         if input_ball == "1":
             print("Pokeball thrown")
             select_pokeball = 1
-            if balls[0][1] <= catch_chance and balls[0][2] >= catch_chance:
+            if pokepokeballs[0][1] <= catch_chance and pokepokeballs[0][2] >= catch_chance:
                 print("Pokemon catched")
             else:
                 print("Pokemon escaped")
         elif input_ball == "2":
             print("Superball thrown")
             select_pokeball = 1
-            if balls[1][1] <= catch_chance and balls[1][2] >= catch_chance:
+            if pokepokeballs[1][1] <= catch_chance and pokepokeballs[1][2] >= catch_chance:
                 print("Pokemon catched")
             else:
                 print("Pokemon escaped")
         elif input_ball == "3":
             print("Hyperball thrown")
             select_pokeball = 1
-            if balls[2][1] <= catch_chance and balls[2][2] >= catch_chance:
+            if pokepokeballs[2][1] <= catch_chance and pokepokeballs[2][2] >= catch_chance:
                 print("Pokemon catched")
             else:
                 print("Pokemon escaped")
         elif input_ball == "4":
             print("Masterball thrown")
             select_pokeball = 1
-            if balls[3][1] <= catch_chance and balls[3][2] >= catch_chance:
+            if pokeballs[3][1] <= catch_chance and pokeballs[3][2] >= catch_chance:
                 print("Pokemon catched")
             else:
                 print("Pokemon escaped")
@@ -204,58 +204,80 @@ def catchResistance():
     select_pokeball = 0
 
     while select_pokeball < 1:
-        print("Choose your pokeball:\n", end="")
-        print("1: Pokeball | 2: Superball | 3: Hyperball | 4: Masterball")
+        print("\nChoose your pokeball:\n", end="")
+        print("1: Pokeball", inventory_pokepokeballs[0][1], end="")
+        print("x | 2: Superball", inventory_pokepokeballs[1][1], end="")
+        print("x | 3: Hyperball", inventory_pokepokeballs[2][1], end="")
+        print("x | 4: Masterball", inventory_pokepokeballs[3][1], end="")
+        print("x | 5: Shop | 0: Exit")
         input_ball = input()
         catch_chance = random.randint(0, 100)
         # print(catch_chance)
         resistance_chance = random.randint(0, 100)
         # print(resistance_chance)
         if input_ball == "1":
-            print("Pokeball thrown")
-            select_pokeball = 1
-            if balls[0][1] <= catch_chance and balls[0][2] >= catch_chance:
-                if resistance_chance >= 0 and resistance_chance <= 50:
-                    print(pokemon_spawn, "catched")
+            if inventory_pokepokeballs[0][1] > 0:
+                inventory_pokepokeballs[0][1] -= 1
+                print("Pokeball thrown")
+                select_pokeball = 1
+                if pokeballs[0][1] <= catch_chance and pokeballs[0][2] >= catch_chance:
+                    if resistance_chance >= 0 and resistance_chance <= 50:
+                        print(pokemon_spawn, "catched")
+                    else:
+                        print(pokemon_spawn, "escaped")
                 else:
                     print(pokemon_spawn, "escaped")
             else:
-                print(pokemon_spawn, "escaped")
+                print("No Pokeball in your bag")
         elif input_ball == "2":
-            print("Superball thrown")
-            select_pokeball = 1
-            if balls[1][1] <= catch_chance and balls[1][2] >= catch_chance:
-                if resistance_chance >= 0 and resistance_chance <= 50:
-                    print(pokemon_spawn, "catched")
+            if inventory_pokepokeballs[1][1] > 0:
+                inventory_pokepokeballs[1][1] -= 1
+                print("Superball thrown")
+                select_pokeball = 1
+                if pokeballs[1][1] <= catch_chance and pokeballs[1][2] >= catch_chance:
+                    if resistance_chance >= 0 and resistance_chance <= 50:
+                        print(pokemon_spawn, "catched")
+                    else:
+                        print(pokemon_spawn, "escaped")
                 else:
                     print(pokemon_spawn, "escaped")
             else:
-                print(pokemon_spawn, "escaped")
+                print("No Superball in your bag")
         elif input_ball == "3":
-            print("Hyperball thrown")
-            select_pokeball = 1
-            if balls[2][1] <= catch_chance and balls[2][2] >= catch_chance:
-                if resistance_chance >= 0 and resistance_chance <= 50:
-                    print(pokemon_spawn,"catched")
+            if inventory_pokepokeballs[2][1] > 0:
+                inventory_pokepokeballs[2][1] -= 1
+                print("Hyperball thrown")
+                select_pokeball = 1
+                if pokeballs[2][1] <= catch_chance and pokeballs[2][2] >= catch_chance:
+                    if resistance_chance >= 0 and resistance_chance <= 50:
+                        print(pokemon_spawn,"catched")
+                    else:
+                        print(pokemon_spawn, "escaped")
                 else:
                     print(pokemon_spawn, "escaped")
             else:
-                print(pokemon_spawn, "escaped")
+                print("No Hyperball in your bag")
         elif input_ball == "4":
-            print("Masterball thrown")
-            select_pokeball = 1
-            print(pokemon_spawn, "catched")
-        else:
-            pass
+            if inventory_pokepokeballs[2][1] > 0:
+                inventory_pokepokeballs[2][1] -= 1
+                print("Masterball thrown")
+                select_pokeball = 1
+                print(pokemon_spawn, "catched")
+            else:
+                print("No Masterball in your bag")
+        elif input_ball == "5":
+            shop()
+        elif input_ball == "0":
+            play()
 
 # catchResistance()
 
 
 # Mettre en place un inventaire des objets obtenus :
 # - 1 Inventaire Pokémons
-# - 1 Inventaire Pokéballs
+# - 1 Inventaire Poképokeballs
 
-inventory_pokeballs = [
+inventory_pokepokeballs = [
     ["Pokeball", 0], ["Superball", 0],["Hyperball", 0], ["Masterball", 0]
 ]
 inventory_pokemons = [
@@ -267,7 +289,7 @@ def inventory():
 
     while select_inventory < 1:
         print("Choose your inventory:\n", end="")
-        print("1: Pokemons | 2: Pokeballs")
+        print("1: Pokemons | 2: Pokepokeballs")
         input_inventory = input()
         if input_inventory == "1":
             print("--- Pokemons inventory ---")
@@ -277,9 +299,9 @@ def inventory():
                 print("Pokemon:", inventory_pokemons[i][0], "| Amount:", inventory_pokemons[i][1])
             select_inventory = 1
         elif input_inventory == "2":
-            print("--- Pokeballs inventory ---")
-            for i in range (0, len(inventory_pokeballs)):
-                print("Pokeball:", inventory_pokeballs[i][0], "| Amount:", inventory_pokeballs[i][1])
+            print("--- Pokepokeballs inventory ---")
+            for i in range (0, len(inventory_pokepokeballs)):
+                print("Pokeball:", inventory_pokepokeballs[i][0], "| Amount:", inventory_pokepokeballs[i][1])
             select_inventory = 1
         else:
             print("Select an inventory")
@@ -345,41 +367,41 @@ def pokeshop():
 
     print("What do you want to buy ?\n", end ="")
     print("Balance:", balance, "P$\n")
-    print("1: Pokeball -", balls[0][3], "Pokedollars")
-    print("2: Superball -", balls[1][3], "Pokedollars")
-    print("3: Hyperball -", balls[2][3], "Pokedollars")
-    print("4: Masterball -", balls[3][3], "Pokedollars")
+    print("1: Pokeball -", pokeballs[0][3], "Pokedollars")
+    print("2: Superball -", pokeballs[1][3], "Pokedollars")
+    print("3: Hyperball -", pokeballs[2][3], "Pokedollars")
+    print("4: Masterball -", pokeballs[3][3], "Pokedollars")
     input_shop = input()
     if input_shop == "1":
-        if balance >= balls[0][3]:
+        if balance >= pokeballs[0][3]:
             balance -= 200
-            inventory_pokeballs[0][1] += 1
+            inventory_pokepokeballs[0][1] += 1
             print("Pokeball bought: -", end="")
-            print(balls[0][3], "Pokedollars")
+            print(pokeballs[0][3], "Pokedollars")
         else:
             print("You can not buy this item")
     elif input_shop == "2":
-        if balance >=  balls[1][3]:
+        if balance >=  pokeballs[1][3]:
             balance -= 600
-            inventory_pokeballs[1][1] += 1
+            inventory_pokepokeballs[1][1] += 1
             print("Superball bought: -", end="")
-            print(balls[1][3], "Pokedollars")
+            print(pokeballs[1][3], "Pokedollars")
         else:
             print("You can not buy this item")
     elif input_shop == "2":
-        if balance >= balls[2][3]:
+        if balance >= pokeballs[2][3]:
             balance -= 1200
-            inventory_pokeballs[2][1] += 1
+            inventory_pokepokeballs[2][1] += 1
             print("Hyperball bought: -", end="")
-            print(balls[2][3], "Pokedollars")
+            print(pokeballs[2][3], "Pokedollars")
         else:
             print("You can not buy this item")
     elif input_shop == "2":
-        if balance >= balls[3][3]:
+        if balance >= pokeballs[3][3]:
             balance -= 50000
-            inventory_pokeballs[3][1] += 1
+            inventory_pokepokeballs[3][1] += 1
             print("Masterball bought: -", end="")
-            print(balls[3][3], "Pokedollars")
+            print(pokeballs[3][3], "Pokedollars")
         else:
             print("You can not buy this item")
 
