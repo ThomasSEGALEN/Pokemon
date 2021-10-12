@@ -127,8 +127,6 @@ def fight():
 #   Catch function - allow player to catch Pokemons
 
 def catch():
-    # global inventory_pokemons
-    # global inventory_pokeballs
     select_pokeball = 0
 
     while select_pokeball < 1:

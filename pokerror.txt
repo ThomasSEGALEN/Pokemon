@@ -8,8 +8,6 @@ for i in range (0, len(pokemons)):
 
 --
 
-error
-
-catch() - shop() not defined
+errors
 
 fight() - invalid input redirects into random pokemon
