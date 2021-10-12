@@ -136,7 +136,7 @@ def catch():
         print("1: Pokeball", inventory_pokeballs[0][1], end="")
         print("x | 2: Superball", inventory_pokeballs[1][1], end="")
         print("x | 3: Hyperball", inventory_pokeballs[2][1], end="")
-        print("x | 4: Masterball", inventory_pokeballs[3][1], end="x | 5: Shop\n")
+        print("x | 4: Masterball", inventory_pokeballs[3][1], end="x | 5: Shop | Enter: Flee\n")
         input_ball = input()
         catch_chance = random.randint(0, 100)
         # print(catch_chance)
@@ -193,10 +193,10 @@ def catch():
             else:
                 print("No Masterball in your bag")
         elif input_ball == "5":
-            shop()
+            pokeshop()
         elif input_ball == "":
             print("You fled")
-            play()
+            break
 
 
 #   Inventory function - allow player to keep Pokemons and Pokeballs

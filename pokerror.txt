@@ -1,11 +1,15 @@
+pokedex
+
 poke_name = "Caterpie"
 for i in range (0, len(pokemons)):
     if poke_name == pokemons[i][0]:
         print(pokemons[i][0])
         print("ID", i+1)
 
+--
 
 error
+
 catch() - shop() not defined
 
 fight() - invalid input redirects into random pokemon
