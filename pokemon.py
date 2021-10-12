@@ -154,21 +154,7 @@ balls = [
 ]
 
 def catch():
-    total_range = 0
     select_pokeball = 0
-
-    for i in range (0, len(pokemons)):
-        total_range += pokemons[i][2] - pokemons[i][1]
-    # print(total_range)    # 4940
-    random_pokemon = (random.randint(0, total_range))
-    # print(random_pokemon)
-
-    for i in range (0, len(pokemons)-1):
-        if random_pokemon >= pokemons[i][1] and random_pokemon <= pokemons[i][2]:
-            pokemon_spawn = pokemons[i][0]
-            print(pokemon_spawn)
-            pokemons[i][4] += 1
-            # print(pokemons[i][4])
 
     while select_pokeball < 1:
         print("Choose your pokeball:\n", end="")
@@ -215,21 +201,7 @@ def catch():
 # Attention, la Masterball ne prend pas en compte la résistance
 
 def catchResistance():
-    total_range = 0
     select_pokeball = 0
-
-    for i in range (0, len(pokemons)):
-        total_range += pokemons[i][2] - pokemons[i][1]
-    # print(total_range)    # 4940
-    random_pokemon = (random.randint(0, total_range))
-    # print(random_pokemon)
-
-    for i in range (0, len(pokemons)-1):
-        if random_pokemon >= pokemons[i][1] and random_pokemon <= pokemons[i][2]:
-            pokemon_spawn = pokemons[i][0]
-            print(pokemon_spawn)
-            pokemons[i][4] += 1
-            # print(pokemons[i][4])
 
     while select_pokeball < 1:
         print("Choose your pokeball:\n", end="")
@@ -328,9 +300,9 @@ def fight():
     print("Select your Pokemon:")
     for i in range (0, len(inventory_pokemons)):
         print("Pokemon", i+1, ":", inventory_pokemons[i][0])
-    input_pokemon = input()
-    pokemon_stats = inventory_pokemons[int(input_pokemon)-1]
-    pokemon_fight = inventory_pokemons[int(input_pokemon)-1][0]
+    input_fight = input()
+    pokemon_stats = inventory_pokemons[int(input_fight)-1]
+    pokemon_fight = inventory_pokemons[int(input_fight)-1][0]
     # print(pokemon_stats)
     # print(pokemon_spawn_stats)
     pokemon_ratio_1 = round((pokemon_stats[5] / pokemon_stats[6])+20)
@@ -362,25 +334,6 @@ def fight():
 # fight()
 
 
-def play():
-    while True:
-        x = input()
-        print("Wild", end=" ")
-        spawn()
-        print("spawned!")
-        print("Choose your action:\n", end="")
-        print("1: Fight | 2: Catch | 3: Inventory | 4: Shop | Enter: Flee")
-        input_play = input()
-        if input_play == "1":
-            fight()
-        elif input_play == "2":
-            catchResistance()
-        # elif input_play == "3":   Inventory
-        else:
-            pass
-
-play()
-
 # Ajouter un shop, avec les prix suivants : 
 #       -> pokeball : 200$
 #       -> superball : 600$
@@ -388,24 +341,70 @@ play()
 #       -> masterball : 50 000$
 
 def pokeshop():
-    print("What do you want to buy?:\n", end="")
+    global balance
+
+    print("What do you want to buy ?\n", end ="")
+    print("Balance:", balance, "P$\n")
     print("1: Pokeball -", balls[0][3], "Pokedollars")
     print("2: Superball -", balls[1][3], "Pokedollars")
     print("3: Hyperball -", balls[2][3], "Pokedollars")
     print("4: Masterball -", balls[3][3], "Pokedollars")
     input_shop = input()
-    # print(input_shop)
     if input_shop == "1":
-        print("Pokeball bought: -", end="")
-        print(balls[0][3], "Pokedollars")
+        if balance >= balls[0][3]:
+            balance -= 200
+            inventory_pokeballs[0][1] += 1
+            print("Pokeball bought: -", end="")
+            print(balls[0][3], "Pokedollars")
+        else:
+            print("You can not buy this item")
     elif input_shop == "2":
-        print("Superball bought: -", end="")
-        print(balls[1][3], "Pokedollars")
+        if balance >=  balls[1][3]:
+            balance -= 600
+            inventory_pokeballs[1][1] += 1
+            print("Superball bought: -", end="")
+            print(balls[1][3], "Pokedollars")
+        else:
+            print("You can not buy this item")
     elif input_shop == "2":
-        print("Hyperball bought: -", end="")
-        print(balls[2][3], "Pokedollars")
+        if balance >= balls[2][3]:
+            balance -= 1200
+            inventory_pokeballs[2][1] += 1
+            print("Hyperball bought: -", end="")
+            print(balls[2][3], "Pokedollars")
+        else:
+            print("You can not buy this item")
     elif input_shop == "2":
-        print("Masterball bought: -", end="")
-        print(balls[3][3], "Pokedollars")
+        if balance >= balls[3][3]:
+            balance -= 50000
+            inventory_pokeballs[3][1] += 1
+            print("Masterball bought: -", end="")
+            print(balls[3][3], "Pokedollars")
+        else:
+            print("You can not buy this item")
 
 # pokeshop()
+
+
+def play():
+    while True:
+        x = input()
+        print("Wild", end=" ")
+        spawn()
+        print("spawned!")
+        print("Choose your action:\n", end="")
+        print("1: Fight | 2: Catch | 3: Inventory | 4: Shop | Enter: Flee | 0: Exit")
+        input_play = input()
+        if input_play == "1":
+            fight()
+        elif input_play == "2":
+            catchResistance()
+        # elif input_play == "3":   Inventory
+        elif input_play == "4":
+            pokeshop()
+        elif input_play == "0":
+            break
+        else:
+            pass
+
+play()
