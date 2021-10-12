@@ -5,7 +5,7 @@ import random
 #   Pokedollars
 balance = 0
 
-#   Pokemons list - "name", minSpawn, maxSpawn, %Spawn, nbSpawn, attack, defense
+#   Pokemons list - "name", minSpawn, maxSpawn, %Spawn, nbCatch, attack, defense
 pokemons = [
     ["Bulbasaur", 0, 60, 0, 0, 49, 49], ["Charmander", 61, 121, 0, 0, 52, 43], ["Squirtle", 122, 182, 0, 0, 48, 65], ["Caterpie", 183, 263, 0, 0, 30, 35], 
     ["Weedle", 264, 344, 0, 0, 35, 30], ["Pidgey", 345, 425, 0, 0, 45, 40], ["Rattata", 426, 506, 0, 0, 56, 35], ["Spearow", 507, 587, 0, 0, 60, 30], 
@@ -53,9 +53,9 @@ inventory_pokemons = [
 #   Spawn function - spawn a pokemon with which the player can interact
 
 def spawn():
-    total_range = 0
     global pokemon_spawn
     global pokemon_spawn_stats
+    total_range = 0
 
     for i in range (0, len(pokemons)):
         total_range += pokemons[i][2] - pokemons[i][1]
@@ -127,8 +127,8 @@ def fight():
 #   Catch function - allow player to catch Pokemons
 
 def catch():
-    global inventory_pokemons
-    global inventory_pokeballs
+    # global inventory_pokemons
+    # global inventory_pokeballs
     select_pokeball = 0
 
     while select_pokeball < 1:
@@ -136,8 +136,7 @@ def catch():
         print("1: Pokeball", inventory_pokeballs[0][1], end="")
         print("x | 2: Superball", inventory_pokeballs[1][1], end="")
         print("x | 3: Hyperball", inventory_pokeballs[2][1], end="")
-        print("x | 4: Masterball", inventory_pokeballs[3][1], end="")
-        print("x | 5: Shop | 0: Exit")
+        print("x | 4: Masterball", inventory_pokeballs[3][1], end="x | 5: Shop\n")
         input_ball = input()
         catch_chance = random.randint(0, 100)
         # print(catch_chance)
@@ -195,7 +194,8 @@ def catch():
                 print("No Masterball in your bag")
         elif input_ball == "5":
             shop()
-        elif input_ball == "0":
+        elif input_ball == "":
+            print("You fled")
             play()
 
 
@@ -220,6 +220,8 @@ def inventory():
             for i in range (0, len(inventory_pokeballs)):
                 print(inventory_pokeballs[i][0], "- Amount:", inventory_pokeballs[i][1], end="x\n")
             select_inventory = 1
+        elif input_inventory == "":
+            select_inventory = 1
         else:
             print("Select an inventory")
 
@@ -228,48 +230,56 @@ def inventory():
 
 def pokeshop():
     global balance
+    select_pokeshop = 0
 
-    print("\nWhat do you want to buy ?\n", end ="")
-    print("Balance:", balance, "P$\n")
-    print("1: Pokeball -", pokeballs[0][3], "Pokedollars")
-    print("2: Superball -", pokeballs[1][3], "Pokedollars")
-    print("3: Hyperball -", pokeballs[2][3], "Pokedollars")
-    print("4: Masterball -", pokeballs[3][3], "Pokedollars")
-    input_shop = input()
-    if input_shop == "1":
-        if balance >= pokeballs[0][3]:
-            balance -= 200
-            inventory_pokeballs[0][1] += 1
-            print("Pokeball bought: -", end="")
-            print(pokeballs[0][3], "Pokedollars")
+    while select_pokeshop < 1:
+        print("\nWhat do you want to buy ?\n", end ="")
+        print("Balance:", balance, "P$\n")
+        print("1: Pokeball -", pokeballs[0][3], "Pokedollars")
+        print("2: Superball -", pokeballs[1][3], "Pokedollars")
+        print("3: Hyperball -", pokeballs[2][3], "Pokedollars")
+        print("4: Masterball -", pokeballs[3][3], "Pokedollars")
+        input_shop = input()
+        if input_shop == "1":
+            if balance >= pokeballs[0][3]:
+                balance -= 200
+                inventory_pokeballs[0][1] += 1
+                print("Pokeball bought: -", end="")
+                print(pokeballs[0][3], "Pokedollars")
+            else:
+                print("Not enough Pokedollars")
+                select_pokeshop = 1
+        elif input_shop == "2":
+            if balance >=  pokeballs[1][3]:
+                balance -= 600
+                inventory_pokeballs[1][1] += 1
+                print("Superball bought: -", end="")
+                print(pokeballs[1][3], "Pokedollars")
+            else:
+                print("Not enough Pokedollars")
+                select_pokeshop = 1
+        elif input_shop == "3":
+            if balance >= pokeballs[2][3]:
+                balance -= 1200
+                inventory_pokeballs[2][1] += 1
+                print("Hyperball bought: -", end="")
+                print(pokeballs[2][3], "Pokedollars")
+            else:
+                print("Not enough Pokedollars")
+                select_pokeshop = 1
+        elif input_shop == "4":
+            if balance >= pokeballs[3][3]:
+                balance -= 50000
+                inventory_pokeballs[3][1] += 1
+                print("Masterball bought: -", end="")
+                print(pokeballs[3][3], "Pokedollars")
+            else:
+                print("Not enough Pokedollars")
+                select_pokeshop = 1
+        elif input_shop == "":
+            select_pokeshop = 1
         else:
-            print("Not enough Pokedollars")
-    elif input_shop == "2":
-        if balance >=  pokeballs[1][3]:
-            balance -= 600
-            inventory_pokeballs[1][1] += 1
-            print("Superball bought: -", end="")
-            print(pokeballs[1][3], "Pokedollars")
-        else:
-            print("Not enough Pokedollars")
-    elif input_shop == "3":
-        if balance >= pokeballs[2][3]:
-            balance -= 1200
-            inventory_pokeballs[2][1] += 1
-            print("Hyperball bought: -", end="")
-            print(pokeballs[2][3], "Pokedollars")
-        else:
-            print("Not enough Pokedollars")
-    elif input_shop == "4":
-        if balance >= pokeballs[3][3]:
-            balance -= 50000
-            inventory_pokeballs[3][1] += 1
-            print("Masterball bought: -", end="")
-            print(pokeballs[3][3], "Pokedollars")
-        else:
-            print("Not enough Pokedollars")
-    else:
-        print("Select an item")
+            print("Select an item")
 
 
 #   Play function - group every functions to play
@@ -288,7 +298,6 @@ def play():
             pokeshop()
         elif input_play == "0":
             x = False
-        else:
-            pass
+            
 
 play()
