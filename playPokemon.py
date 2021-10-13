@@ -162,9 +162,6 @@ def fight():
 #   Catch function - allow player to catch Pokemons
 
 def catch():
-    global pokemon_spawn
-    global pokemon_spawn_stats
-    global pokemon_spawn_index
     select_pokeball = False
     pokemon_different = False
 
