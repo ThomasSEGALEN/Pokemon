@@ -41,7 +41,7 @@ pokeballs = [
 
 #   Pokeballs inventory - "name", amount
 inventory_pokeballs = [
-    ["Pokeball", 30], ["Superball", 15],["Hyperball", 5], ["Masterball", 1]
+    ["Pokeball", 30], ["Superball", 15],["Hyperball", 500], ["Masterball", 100]
 ]
 
 #   Pokemons inventory
@@ -55,6 +55,7 @@ inventory_pokemons = [
 def spawn():
     global pokemon_spawn
     global pokemon_spawn_stats
+    global pokemon_spawn_index
     total_range = 0
 
     for i in range (0, len(pokemons)):
@@ -67,13 +68,10 @@ def spawn():
         if random_pokemon >= pokemons[i][1] and random_pokemon <= pokemons[i][2]:
             pokemon_spawn = pokemons[i][0]
             pokemon_spawn_stats = pokemons[i]
-            pokemons[i][4] += 1
-            # print(pokemons[i][4])
+            pokemon_spawn_index = i
             print("\nWild", end=" ")
             print(pokemon_spawn, end=" ")
             print("spawned !")
-            pokemons[i][4] += 1
-            # print(pokemons[i][4])
     print("\nChoose your action:\n", end="")
     print("1: Fight | 2: Catch | Enter: Flee")
     input_spawn = input()
@@ -89,11 +87,16 @@ def spawn():
 def fight():
     global balance
 
-    print("\nSelect your Pokemon:")
+    print("\nSelect your Pokemon:\n", end="Enter: Flee\n")
     for i in range (0, len(inventory_pokemons)):
         print("Pokemon", i+1, ":", inventory_pokemons[i][0])
     input_fight = input()
-    if int(input_fight) <= len(inventory_pokemons):
+    if input_fight == "":
+        play()
+    elif int(input_fight) == 0 or int(input_fight) > len(inventory_pokemons):
+        print("Select a pokemon")
+        fight()
+    elif int(input_fight) <= len(inventory_pokemons):
         pokemon_stats = inventory_pokemons[int(input_fight)-1]
         pokemon_fight = inventory_pokemons[int(input_fight)-1][0]
         # print(pokemon_stats)
@@ -123,15 +126,13 @@ def fight():
             print(pokemon_spawn, "attacks")
             print("Your Pokemon >", end=" ")
             print(pokemon_fight, "fainted")
-    else:
-        print("Select a pokemon")
-        fight()
 
 
 #   Catch function - allow player to catch Pokemons
 
 def catch():
     select_pokeball = 0
+    pokemon_different = 0
 
     while select_pokeball < 1:
         print("\nChoose your pokeball:\n", end="")
@@ -150,6 +151,14 @@ def catch():
                 print("Pokeball thrown")
                 select_pokeball = 1
                 if (pokeballs[0][1] <= catch_chance and pokeballs[0][2] >= catch_chance) and (resistance_chance >= 0 and resistance_chance <= 50):
+                    pokemons[pokemon_spawn_index][4] += 1
+                    for i in range (0, len(inventory_pokemons)):
+                        if inventory_pokemons[i][0] != pokemon_spawn:
+                            pokemon_different = 1
+                        else:
+                            pokemon_different = 0
+                    if pokemon_different == 1:
+                        inventory_pokemons.append(pokemon_spawn_stats)
                     print(pokemon_spawn, "catched")
                 else:
                     print(pokemon_spawn, "escaped")
@@ -161,6 +170,14 @@ def catch():
                 print("Superball thrown")
                 select_pokeball = 1
                 if (pokeballs[1][1] <= catch_chance and pokeballs[1][2] >= catch_chance) and (resistance_chance >= 0 and resistance_chance <= 50):
+                    pokemons[pokemon_spawn_index][4] += 1
+                    for i in range (0, len(inventory_pokemons)):
+                        if inventory_pokemons[i][0] != pokemon_spawn:
+                            pokemon_different = 1
+                        else:
+                            pokemon_different = 0
+                    if pokemon_different == 1:
+                        inventory_pokemons.append(pokemon_spawn_stats)
                     print(pokemon_spawn, "catched")
                 else:
                     print(pokemon_spawn, "escaped")
@@ -172,6 +189,14 @@ def catch():
                 print("Hyperball thrown")
                 select_pokeball = 1
                 if (pokeballs[2][1] <= catch_chance and pokeballs[2][2] >= catch_chance) and (resistance_chance >= 0 and resistance_chance <= 50):
+                    pokemons[pokemon_spawn_index][4] += 1
+                    for i in range (0, len(inventory_pokemons)):
+                        if inventory_pokemons[i][0] != pokemon_spawn:
+                            pokemon_different = 1
+                        else:
+                            pokemon_different = 0
+                    if pokemon_different == 1:
+                        inventory_pokemons.append(pokemon_spawn_stats)
                     print(pokemon_spawn,"catched")
                 else:
                     print(pokemon_spawn, "escaped")
@@ -182,6 +207,16 @@ def catch():
                 inventory_pokeballs[3][1] -= 1
                 print("Masterball thrown")
                 select_pokeball = 1
+                pokemons[pokemon_spawn_index][4] += 1
+                for i in range (0, len(inventory_pokemons)):
+                    if inventory_pokemons[i][0] != pokemon_spawn:
+                        pokemon_different = 1
+                if pokemon_different == 1:
+                    inventory_pokemons.append(pokemon_spawn_stats)
+                    pokemon_different = 0
+                    print(inventory_pokemons)
+                else:
+                    print(inventory_pokemons)
                 print(pokemon_spawn, "catched")
             else:
                 print("No Masterball in your bag")
@@ -273,6 +308,9 @@ def pokeshop():
             select_pokeshop = 1
         else:
             print("Select an item")
+
+
+#   Pokedex function - 
 
 
 #   Play function - group every functions to play
