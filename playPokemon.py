@@ -93,35 +93,39 @@ def fight():
     for i in range (0, len(inventory_pokemons)):
         print("Pokemon", i+1, ":", inventory_pokemons[i][0])
     input_fight = input()
-    pokemon_stats = inventory_pokemons[int(input_fight)-1]
-    pokemon_fight = inventory_pokemons[int(input_fight)-1][0]
-    # print(pokemon_stats)
-    # print(pokemon_spawn_stats)
-    pokemon_ratio_1 = round((pokemon_stats[5] / pokemon_stats[6])+20)
-    pokemon_ratio_2 = round((pokemon_spawn_stats[5] / pokemon_spawn_stats[6])+20)
-    # print(pokemon_ratio_1)
-    # print(pokemon_ratio_2)
-    ratio_range = pokemon_ratio_1 + pokemon_ratio_2
-    # print(ratio_range)
-    ratio_random = random.randint(0, ratio_range)
-    # print(ratio_random)
-    print("")
-    print(pokemon_fight, "VS", pokemon_spawn)
-    if ratio_random < pokemon_ratio_1:
-        print("Your Pokemon >", end=" ")
-        print(pokemon_fight, "attacks")
-        print("Enemy >", end=" ")
-        print(pokemon_spawn, "fainted")
-        pokedollars = random.randint(1, 2000)
-        balance += pokedollars
-        print("+", end="")
-        print(pokedollars, "Pokedollars")
-        print("Balance:", balance, "Pokedollars\n")
+    if int(input_fight) <= len(inventory_pokemons):
+        pokemon_stats = inventory_pokemons[int(input_fight)-1]
+        pokemon_fight = inventory_pokemons[int(input_fight)-1][0]
+        # print(pokemon_stats)
+        # print(pokemon_spawn_stats)
+        pokemon_ratio_1 = round((pokemon_stats[5] / pokemon_stats[6])+20)
+        pokemon_ratio_2 = round((pokemon_spawn_stats[5] / pokemon_spawn_stats[6])+20)
+        # print(pokemon_ratio_1)
+        # print(pokemon_ratio_2)
+        ratio_range = pokemon_ratio_1 + pokemon_ratio_2
+        # print(ratio_range)
+        ratio_random = random.randint(0, ratio_range)
+        # print(ratio_random)
+        print("")
+        print(pokemon_fight, "VS", pokemon_spawn)
+        if ratio_random < pokemon_ratio_1:
+            print("Your Pokemon >", end=" ")
+            print(pokemon_fight, "attacks")
+            print("Enemy >", end=" ")
+            print(pokemon_spawn, "fainted")
+            pokedollars = random.randint(1, 2000)
+            balance += pokedollars
+            print("+", end="")
+            print(pokedollars, "Pokedollars")
+            print("Balance:", balance, "Pokedollars\n")
+        else:
+            print("Enemy >", end=" ")
+            print(pokemon_spawn, "attacks")
+            print("Your Pokemon >", end=" ")
+            print(pokemon_fight, "fainted")
     else:
-        print("Enemy >", end=" ")
-        print(pokemon_spawn, "attacks")
-        print("Your Pokemon >", end=" ")
-        print(pokemon_fight, "fainted\n")
+        print("Select a pokemon")
+        fight()
 
 
 #   Catch function - allow player to catch Pokemons
@@ -145,11 +149,8 @@ def catch():
                 inventory_pokeballs[0][1] -= 1
                 print("Pokeball thrown")
                 select_pokeball = 1
-                if pokeballs[0][1] <= catch_chance and pokeballs[0][2] >= catch_chance:
-                    if resistance_chance >= 0 and resistance_chance <= 50:
-                        print(pokemon_spawn, "catched")
-                    else:
-                        print(pokemon_spawn, "escaped")
+                if (pokeballs[0][1] <= catch_chance and pokeballs[0][2] >= catch_chance) and (resistance_chance >= 0 and resistance_chance <= 50):
+                    print(pokemon_spawn, "catched")
                 else:
                     print(pokemon_spawn, "escaped")
             else:
@@ -159,11 +160,8 @@ def catch():
                 inventory_pokeballs[1][1] -= 1
                 print("Superball thrown")
                 select_pokeball = 1
-                if pokeballs[1][1] <= catch_chance and pokeballs[1][2] >= catch_chance:
-                    if resistance_chance >= 0 and resistance_chance <= 50:
-                        print(pokemon_spawn, "catched")
-                    else:
-                        print(pokemon_spawn, "escaped")
+                if (pokeballs[1][1] <= catch_chance and pokeballs[1][2] >= catch_chance) and (resistance_chance >= 0 and resistance_chance <= 50):
+                    print(pokemon_spawn, "catched")
                 else:
                     print(pokemon_spawn, "escaped")
             else:
@@ -173,11 +171,8 @@ def catch():
                 inventory_pokeballs[2][1] -= 1
                 print("Hyperball thrown")
                 select_pokeball = 1
-                if pokeballs[2][1] <= catch_chance and pokeballs[2][2] >= catch_chance:
-                    if resistance_chance >= 0 and resistance_chance <= 50:
-                        print(pokemon_spawn,"catched")
-                    else:
-                        print(pokemon_spawn, "escaped")
+                if (pokeballs[2][1] <= catch_chance and pokeballs[2][2] >= catch_chance) and (resistance_chance >= 0 and resistance_chance <= 50):
+                    print(pokemon_spawn,"catched")
                 else:
                     print(pokemon_spawn, "escaped")
             else:
@@ -283,8 +278,8 @@ def pokeshop():
 #   Play function - group every functions to play
 
 def play():
-    x = True
-    while x == True:
+    play = True
+    while play == True:
         print("\nSelect a menu:\n", end="")
         print("1: Spawn | 2: Inventory | 3: Shop | 0: Exit")
         input_play = input()
@@ -295,7 +290,7 @@ def play():
         elif input_play == "3":
             pokeshop()
         elif input_play == "0":
-            x = False
+            play = False
             
 
 play()
