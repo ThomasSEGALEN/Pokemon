@@ -35,14 +35,14 @@ pokemons = [
     [97, "Ho-Oh", 4945, 4955, 0, 130, 90, 50], [98, "Celebi", 4956, 4976, 0, 100, 100, 50], [99, "Latios", 4977, 5007, 0, 90, 80, 45], [100, "Latias", 5008, 5038, 0, 80, 90, 45]
 ]
 
-#   Pokeballs list - "name", minCatch, maxCatch, price
+#   Pokeballs list - "name", maxCatch, price
 pokeballs = [
     ["Pokeball", 30, 200], ["Superball", 50, 600], ["Hyperball", 70, 1200], ["Masterball", 100, 50000]
 ]
 
 #   Pokeballs inventory - "name", amount
 inventory_pokeballs = [
-    ["Pokeball", 30], ["Superball", 0],["Hyperball", 20], ["Masterball", 100]
+    ["Pokeball", 30], ["Superball", 0],["Hyperball", 20], ["Masterball", 5]
 ]
 
 #   Pokemons inventory
@@ -68,11 +68,9 @@ def spawn():
     global pokemon_spawn_index
     total_range = 0
 
-    for i in range (0, len(pokemons)):
-        total_range += pokemons[i][3] - pokemons[i][2]
-    # print(total_range)
+    pokemons_index = len(pokemons)-1
+    total_range = pokemons[pokemons_index][3]
     random_pokemon = (random.randint(0, total_range))
-    # print(random_pokemon)
     for i in range (0, len(pokemons)-1):
         if random_pokemon >= pokemons[i][2] and random_pokemon <= pokemons[i][3]:
             pokemon_spawn = pokemons[i][1]
@@ -124,16 +122,10 @@ def fight():
         print("spawned !")
         pokemon_stats = inventory_pokemons[int(input_fight)-1]
         pokemon_fight = inventory_pokemons[int(input_fight)-1][1]
-        # print(pokemon_stats)
-        # print(pokemon_spawn_stats)
         pokemon_ratio_1 = int((pokemon_stats[4] / pokemon_stats[5])*100)
         pokemon_ratio_2 = int((pokemon_spawn_stats[4] / pokemon_spawn_stats[5])*100)
-        # print(pokemon_ratio_1)
-        # print(pokemon_ratio_2)
         ratio_range = pokemon_ratio_1 + pokemon_ratio_2
-        # print(ratio_range)
         ratio_random = random.randint(0, ratio_range)
-        # print(ratio_random)
         print("\n", end="")
         print(pokemon_fight, "VS", pokemon_spawn)
         if ratio_random < pokemon_ratio_1:
