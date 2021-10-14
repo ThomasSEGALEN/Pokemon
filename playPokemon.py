@@ -2,6 +2,7 @@ import random
 from os import system, name
 
 #   Init variables
+
 #   Pokedollars
 balance = 10000
 
@@ -41,7 +42,7 @@ pokeballs = [
 
 #   Pokeballs inventory - "name", amount
 inventory_pokeballs = [
-    ["Pokeball", 30], ["Superball", 0],["Hyperball", 500], ["Masterball", 100]
+    ["Pokeball", 30], ["Superball", 0],["Hyperball", 20], ["Masterball", 100]
 ]
 
 #   Pokemons inventory
@@ -180,7 +181,7 @@ def catch():
         if input_ball == "":
             clear()
             play()
-        else:
+        elif int(input_ball) >= 1 and int(input_ball) <= 4:
             catch_chance = pokeballs[int(input_ball)-1][1] - ((pokeballs[int(input_ball)-1][1] * resistance)/100)
         # print(catch_chance)
         if input_ball == "1":
@@ -278,11 +279,9 @@ def catch():
                 print("\nNo Masterball in your bag")
         elif input_ball == "":
             clear()
-            # select_pokeball = True
             play()
         else:
             clear()
-            select_pokeball = True
             catch()
     print("\nEnter: Continue")
     input_continue = input()
